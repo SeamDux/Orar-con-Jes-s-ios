@@ -2,55 +2,46 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import Colors from '../../constants/Colors';
-import axios from 'axios';
 import { Stack } from 'expo-router';
+import { Evangelio, getEvangelioDelDia } from '../data/evangelios';
 
-interface Lectura {
-  id: string;
-  titulo: string;
-  cita: string;
-  introduccion?: string;
-  contenido: string;
-  conclusion?: string;
-}
-
-export default function LecturasScreen() {
-  const [lecturas, setLecturas] = useState<Lectura[]>([]);
+export default function EvangelioScreen() {
+  const [evangelio, setEvangelio] = useState<Evangelio | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchLecturas = async () => {
+    const fetchEvangelio = async () => {
       try {
-        const response = await axios.get('https://liturgia.up.railway.app/v2/evangelio');
-        console.log('API Response:', response.data);
-        const data = response.data;
-
-        const lecturasDiarias = data.map((lectura: any) => ({
-          id: lectura.id,
-          titulo: lectura.titulo,
-          cita: lectura.cita,
-          contenido: lectura.contenido,
-          conclusion: 'Palabra del Señor'
-        }));
-
-        setLecturas(lecturasDiarias);
+        const today = new Date();
+        const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+        const evangelioDelDia = getEvangelioDelDia(dayOfYear);
+        
+        // Actualizamos la fecha con el formato correcto
+        evangelioDelDia.fecha = today.toLocaleDateString('es-ES', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+        
+        setEvangelio(evangelioDelDia);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching readings:', err);
-        setError('No se pudieron cargar las lecturas del día');
+        console.error('Error fetching gospel:', err);
+        setError('No se pudo cargar el evangelio del día');
         setLoading(false);
       }
     };
 
-    fetchLecturas();
+    fetchEvangelio();
   }, []);
 
   return (
     <>
       <Stack.Screen 
         options={{
-          title: 'Lecturas del Día',
+          title: 'Evangelio del Día',
         }}
       />
       {loading ? (
@@ -61,23 +52,20 @@ export default function LecturasScreen() {
         <View style={styles.container}>
           <Text style={styles.errorText}>{error}</Text>
         </View>
-      ) : (
+      ) : evangelio ? (
         <ScrollView style={styles.container}>
-          {lecturas.map((lectura) => (
-            <View key={lectura.id} style={styles.content}>
-              <Text style={styles.titulo}>{lectura.titulo}</Text>
-              <Text style={styles.cita}>{lectura.cita}</Text>
-              <Text style={styles.contenido}>{lectura.contenido}</Text>
-              {lectura.conclusion && (
-                <View style={styles.conclusionContainer}>
-                  <Text style={styles.conclusion}>{lectura.conclusion}</Text>
-                  <Text style={styles.respuesta}>{lectura.titulo === 'Evangelio' ? 'Gloria a ti, Señor Jesús' : 'Te alabamos, Señor'}</Text>
-                </View>
-              )}
+          <View style={styles.content}>
+            <Text style={styles.fecha}>{evangelio.fecha}</Text>
+            <Text style={styles.titulo}>{evangelio.titulo}</Text>
+            <Text style={styles.cita}>{evangelio.cita}</Text>
+            <Text style={styles.contenido}>{evangelio.contenido}</Text>
+            <View style={styles.conclusionContainer}>
+              <Text style={styles.conclusion}>Palabra del Señor</Text>
+              <Text style={styles.respuesta}>Gloria a ti, Señor Jesús</Text>
             </View>
-          ))}
+          </View>
         </ScrollView>
-      )}
+      ) : null}
     </>
   );
 }
@@ -89,6 +77,12 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+  },
+  fecha: {
+    fontSize: 16,
+    color: Colors.secondary,
+    textAlign: 'center',
+    marginBottom: 10,
   },
   titulo: {
     fontSize: 24,
@@ -103,13 +97,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
     marginBottom: 20,
-  },
-  introduccion: {
-    fontSize: 18,
-    lineHeight: 28,
-    textAlign: 'justify',
-    marginBottom: 20,
-    fontStyle: 'italic',
   },
   contenido: {
     fontSize: 20,
