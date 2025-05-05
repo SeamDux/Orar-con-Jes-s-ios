@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../../../components/Themed';
 import Colors from '../../../constants/Colors';
 import { Stack } from 'expo-router';
+import { ThemedText } from '../../../components/ThemedText';
 
 export default function CompletasScreen() {
   return (

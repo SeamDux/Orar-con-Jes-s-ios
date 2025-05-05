@@ -1,34 +1,42 @@
-import { Text, type TextProps, StyleSheet } from 'react-native';
+import { Text as DefaultText, useColorScheme, View, StyleSheet } from 'react-native';
+import Colors from '../constants/Colors';
 
-import { useThemeColor } from '@/hooks/useThemeColor';
-
-export type ThemedTextProps = TextProps & {
+export type TextProps = DefaultText['props'] & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | 'defaultSemiBold' | 'title' | 'subtitle' | 'link';
 };
 
-export function ThemedText({
-  style,
-  lightColor,
-  darkColor,
-  type = 'default',
-  ...rest
-}: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+export function ThemedText(props: TextProps) {
+  const { style, lightColor, darkColor, type = 'default', ...otherProps } = props;
+  const colorScheme = useColorScheme();
+  const color = colorScheme === 'dark' ? darkColor : lightColor;
+
+  const getStyle = () => {
+    switch (type) {
+      case 'default':
+        return styles.default;
+      case 'defaultSemiBold':
+        return styles.defaultSemiBold;
+      case 'title':
+        return styles.title;
+      case 'subtitle':
+        return styles.subtitle;
+      case 'link':
+        return styles.link;
+      default:
+        return styles.default;
+    }
+  };
 
   return (
-    <Text
+    <DefaultText
       style={[
+        getStyle(),
         { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
         style,
       ]}
-      {...rest}
+      {...otherProps}
     />
   );
 }
