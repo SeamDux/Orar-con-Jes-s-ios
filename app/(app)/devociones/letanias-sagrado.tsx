@@ -28,14 +28,16 @@ export default function LetaniasSagradoScreen() {
           </Text>
 
           <Text style={styles.oracion}>
-            Dios Padre celestial, ten piedad de nosotros{'\n'}
+            Dios Padre celestial,{'\n'}
+          <Text style={styles.textoRojoItalic}>ten piedad de nosotros{'\n'}</Text>
             Dios Hijo Redentor del mundo,{'\n'}
             Dios Espíritu Santo,{'\n'}
             Santísima Trinidad, que eres un solo Dios,
           </Text>
 
           <Text style={styles.oracion}>
-            Corazón de Jesús, Hijo del Padre Eterno, ten piedad de nosotros{'\n'}
+            Corazón de Jesús, Hijo del Padre Eterno,{'\n'}
+          <Text style={styles.textoRojoItalic}>ten piedad de nosotros{'\n'}</Text>
             Corazón de Jesús, formado por el Espíritu Santo en el seno de la Virgen Madre,{'\n'}
             Corazón de Jesús, unido sustancialmente al Verbo de Dios,{'\n'}
             Corazón de Jesús, de infinita majestad,{'\n'}
@@ -71,9 +73,12 @@ export default function LetaniasSagradoScreen() {
           </Text>
 
           <Text style={styles.oracion}>
-            Cordero de Dios, que quitas los pecados del mundo, perdónanos Señor{'\n'}
-            Cordero de Dios, que quitas los pecados del mundo, escúchanos Señor{'\n'}
-            Cordero de Dios, que quitas los pecados del mundo, ten misericordia de nosotros
+            Cordero de Dios, que quitas los pecados del mundo,{'\n'}
+            <Text style={styles.textoRojoItalic}>perdónanos Señor{'\n'}</Text>
+            Cordero de Dios, que quitas los pecados del mundo,{'\n'}
+            <Text style={styles.textoRojoItalic}>escúchanos Señor{'\n'}</Text>
+            Cordero de Dios, que quitas los pecados del mundo,{'\n'}
+            <Text style={styles.textoRojoItalic}>ten misericordia de nosotros</Text>
           </Text>
 
           <Text style={styles.oracion}>
@@ -121,5 +126,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     color: '#000000',
+  },
+  textoItalica: {
+    fontSize: 18,
+    lineHeight: 28,
+    marginBottom: 10,
+    fontStyle: 'italic',
+    textAlign: 'center',
+  },
+  textoRojoItalic: {
+    fontSize: 18,
+    lineHeight: 28,
+    marginBottom: 10,
+    color: '#dc2626',
+    fontStyle: 'italic',
+    textAlign: 'justify',
   },
 }); 

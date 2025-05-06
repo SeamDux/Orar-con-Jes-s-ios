@@ -27,15 +27,16 @@ export default function LetaniasNombreScreen() {
             Cristo, escúchanos
           </Text>
 
-          <Text style={styles.oracion}>
-            Dios Padre celestial, ten piedad de nosotros{'\n'}
+          <Text style={styles.oracion}>Dios Padre celestial,{'\n'}
+          <Text style={styles.textoRojoItalic}>Ten piedad de nosotros{'\n'}</Text>
             Dios Hijo Redentor del mundo,{'\n'}
             Dios Espíritu Santo,{'\n'}
             Santísima Trinidad, que eres un solo Dios,
           </Text>
 
           <Text style={styles.oracion}>
-            Jesús, Hijo del Dios vivo, ten piedad de nosotros{'\n'}
+            Jesús, Hijo del Dios vivo,{'\n'}
+          <Text style={styles.textoRojoItalic}>Ten piedad de nosotros{'\n'}</Text>
             Jesús, esplendor del Padre,{'\n'}
             Jesús, pureza de la luz eterna,{'\n'}
             Jesús, Rey de la gloria,{'\n'}
@@ -76,12 +77,15 @@ export default function LetaniasNombreScreen() {
           </Text>
 
           <Text style={styles.oracion}>
-            Sé propicio, perdónanos, Jesús{'\n'}
-            Sé propicio, escúchanos, Jesús
+            Sé propicio,{'\n'} 
+          <Text style={styles.textoRojoItalic}>perdónanos, Jesús{'\n'}</Text>
+            Sé propicio,{'\n'}
+          <Text style={styles.textoRojoItalic}>escúchanos, Jesús</Text>
           </Text>
 
           <Text style={styles.oracion}>
-            De todo mal, líbranos, Jesús{'\n'}
+            De todo mal,{'\n'}
+          <Text style={styles.textoRojoItalic}>líbranos, Jesús{'\n'}</Text>
             De todo pecado,{'\n'}
             De tu ira,{'\n'}
             De los lazos del demonio,{'\n'}
@@ -105,9 +109,12 @@ export default function LetaniasNombreScreen() {
           </Text>
 
           <Text style={styles.oracion}>
-            Cordero de Dios, que quitas los pecados del mundo, perdónanos Señor{'\n'}
-            Cordero de Dios, que quitas los pecados del mundo, escúchanos Señor{'\n'}
-            Cordero de Dios, que quitas los pecados del mundo, ten misericordia de nosotros
+            Cordero de Dios, que quitas los pecados del mundo{'\n'}
+          <Text style={styles.textoRojoItalic}>perdónanos Señor{'\n'}</Text>
+            Cordero de Dios, que quitas los pecados del mundo{'\n'}
+          <Text style={styles.textoRojoItalic}>escúchanos Señor{'\n'}</Text>
+            Cordero de Dios, que quitas los pecados del mundo{'\n'}
+          <Text style={styles.textoRojoItalic}>ten misericordia de nosotros{'\n'}</Text>
           </Text>
 
           <Text style={styles.oracion}>
@@ -115,7 +122,7 @@ export default function LetaniasNombreScreen() {
             R. Jesús, escúchanos
           </Text>
 
-          <Text style={styles.subtitulo}>OREMOS</Text>
+          <Text style={styles.subtitulo}>Oremos</Text>
 
           <Text style={styles.oracion}>
             Oh Dios, que constituiste a tu Hijo único Salvador del género humano y quisiste que se llamara Jesús, concédenos benignamente que, venerando su santo nombre en la tierra, gocemos de su visión en el cielo. Por el mismo Jesucristo, nuestro Señor. Amén.
@@ -155,5 +162,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     color: '#000000',
+  },
+  textoItalica: {
+    fontSize: 18,
+    lineHeight: 28,
+    marginBottom: 10,
+    fontStyle: 'italic',
+    textAlign: 'center',
+  },
+  textoRojoItalic: {
+    fontSize: 18,
+    lineHeight: 28,
+    marginBottom: 10,
+    color: '#dc2626',
+    fontStyle: 'italic',
+    textAlign: 'justify',
   },
 }); 
