@@ -17,7 +17,7 @@ export default function LecturasScreen() {
           headerTintColor: Colors.white,
           headerLeft: () => (
             <Pressable 
-              onPress={() => router.push('/oraciones-difuntos')}
+              onPress={() => router.back()}
               style={{ marginLeft: 16 }}
             >
               <Ionicons name="arrow-back" size={24} color={Colors.white} />
@@ -100,12 +100,7 @@ export default function LecturasScreen() {
             </Text>
           </View>
 
-          <Pressable 
-            style={styles.button}
-            onPress={() => router.back()}
-          >
-            <Text style={styles.buttonText}>Volver al listado</Text>
-          </Pressable>
+          
         </View>
       </ScrollView>
     </>

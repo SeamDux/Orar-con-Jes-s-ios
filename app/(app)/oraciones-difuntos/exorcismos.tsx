@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Pressable } from 'react-native';
+import { StyleSheet, ScrollView, Pressable, TouchableOpacity, Linking } from 'react-native';
 import { Text, View } from '../../../components/Themed';
 import Colors from '../../../constants/Colors';
 import { Stack, router } from 'expo-router';
@@ -25,6 +25,13 @@ export default function ExorcismosScreen() {
               Súplicas que pueden utilizar privadamente los fieles en la lucha contra el poder de las tinieblas
             </Text>
           </View>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => Linking.openURL('https://www.vatican.va/roman_curia/congregations/ccdds/documents/rc_con_ccdds_doc_1999-01-26_il-rito-degli-esorcismi_sp.html')}
+          >
+            <Text style={styles.buttonText}>Leer más sobre los exorcismos</Text>
+          </TouchableOpacity>
 
           <View style={styles.seccion}>
             <Text style={styles.subtitulo}>ORACIONES</Text>
@@ -253,13 +260,6 @@ export default function ExorcismosScreen() {
               Cristo, escúchanos / me
             </Text>
           </View>
-
-          <Pressable 
-            style={styles.button}
-            onPress={() => router.push('/oraciones-difuntos')}
-          >
-            <Text style={styles.buttonText}>Volver al listado</Text>
-          </Pressable>
         </View>
       </ScrollView>
     </>

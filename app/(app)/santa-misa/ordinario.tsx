@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Pressable } from 'react-native';
+import { StyleSheet, ScrollView, Pressable, TouchableOpacity, Linking } from 'react-native';
 import { Text, View } from '../../../components/Themed';
 import Colors from '../../../constants/Colors';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import RitosInicialesPage from './ritos-iniciales';
 import LiturgiaPalabraPage from './liturgia-palabra';
 import LiturgiaEucaristicaPage from './liturgia-eucaristica';
@@ -16,6 +16,7 @@ interface Seccion {
 
 export default function OrdinarioPage() {
   const [seccionSeleccionada, setSeccionSeleccionada] = React.useState<string | null>(null);
+  const router = useRouter();
 
   const secciones: Seccion[] = [
     {
@@ -70,6 +71,20 @@ export default function OrdinarioPage() {
               <Text style={styles.opcionTexto}>{seccion.titulo}</Text>
             </Pressable>
           ))}
+          {/* Botones para las 4 plegarias eucarísticas */}
+          <Text style={{marginTop: 30, marginBottom: 10, fontWeight: 'bold', fontSize: 18, textAlign: 'center'}}>Plegarias Eucarísticas</Text>
+          <Pressable style={styles.opcion} onPress={() => router.push('/santa-misa/plegaria-1')}>
+            <Text style={styles.opcionTexto}>Plegaria Eucarística I (Canon Romano)</Text>
+          </Pressable>
+          <Pressable style={styles.opcion} onPress={() => router.push('/santa-misa/plegaria-2')}>
+            <Text style={styles.opcionTexto}>Plegaria Eucarística II</Text>
+          </Pressable>
+          <Pressable style={styles.opcion} onPress={() => router.push('/santa-misa/plegaria-3')}>
+            <Text style={styles.opcionTexto}>Plegaria Eucarística III</Text>
+          </Pressable>
+          <Pressable style={styles.opcion} onPress={() => router.push('/santa-misa/plegaria-4')}>
+            <Text style={styles.opcionTexto}>Plegaria Eucarística IV</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </>
@@ -95,5 +110,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+button: {
+    backgroundColor: Colors.primary,
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 15,
+  },
+  buttonText: {
+    color: Colors.white,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 }); 

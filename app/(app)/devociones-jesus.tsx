@@ -18,6 +18,14 @@ export default function DevocionesJesusScreen() {
       />
       <ScrollView style={styles.container}>
         <View style={styles.content}>
+
+        <TouchableOpacity 
+            style={styles.devocionItem}
+            onPress={() => router.push('/devociones/salmo-2')}
+          >
+            <Text style={styles.devocionItemTitulo}>Salmo 2</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity 
             style={styles.devocionItem}
             onPress={() => router.push('/devociones/coronilla-misericordia')}
@@ -62,6 +70,13 @@ export default function DevocionesJesusScreen() {
 
           <TouchableOpacity 
             style={styles.devocionItem}
+            onPress={() => router.push('/devociones/mes-sagrado-corazon')}
+          >
+            <Text style={styles.devocionItemTitulo}>Mes del Sagrado Corazón de Jesús</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.devocionItem}
             onPress={() => router.push('/devociones/letanias-sagrado')}
           >
             <Text style={styles.devocionItemTitulo}>Letanías del Sagrado Corazón</Text>
@@ -79,6 +94,20 @@ export default function DevocionesJesusScreen() {
             onPress={() => router.push('/devociones/via-crucis')}
           >
             <Text style={styles.devocionItemTitulo}>Vía Crucis</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.devocionItem}
+            onPress={() => router.push('/devociones/via-crucis-breve')}
+          >
+            <Text style={styles.devocionItemTitulo}>Vía Crucis breve</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.devocionItem}
+            onPress={() => router.push('/devociones/oracion-sagrado-dificultades')}
+          >
+            <Text style={styles.devocionItemTitulo}>Oración al Sagrado Corazón ante las dificultades de San Claudio de la Colombiere</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

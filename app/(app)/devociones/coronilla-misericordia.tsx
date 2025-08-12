@@ -39,7 +39,7 @@ export default function CoronillaMisericordiaScreen() {
             5. En cada cuenta mayor del Rosario, cuando normalmente se dice el Padre Nuestro, diga:
           </Text>
 
-          <Text style={styles.oracion}>
+          <Text style={styles.textoItalica}>
             Padre Eterno,{'\n'}
             Te ofrezco{'\n'}
             el Cuerpo, la Sangre,{'\n'}
@@ -55,7 +55,7 @@ export default function CoronillaMisericordiaScreen() {
             6. En cada cuenta menor del Rosario, cuando normalmente se dice el Ave María, diga:
           </Text>
 
-          <Text style={styles.oracion}>
+          <Text style={styles.textoItalica}>
             Por Su dolorosa Pasión,{'\n'}
             ten misericordia de nosotros{'\n'}
             y del mundo entero.
@@ -65,7 +65,7 @@ export default function CoronillaMisericordiaScreen() {
             7. Invocación: Al final de la corona, la siguiente oración se reza tres veces seguidas:
           </Text>
 
-          <Text style={styles.oracion}>
+          <Text style={styles.textoItalica}>
             Santo Dios,{'\n'}
             Santo Fuerte,{'\n'}
             Santo Inmortal,{'\n'}
@@ -77,7 +77,7 @@ export default function CoronillaMisericordiaScreen() {
             8. Oración para concluir (opcional)
           </Text>
 
-          <Text style={styles.oracion}>
+          <Text style={styles.textoItalica}>
             Oh Dios Eterno, en quien la misericordia es infinita y el tesoro de compasión inagotable, vuelve a nosotros Tu mirada bondadosa y aumenta Tu misericordia en nosotros, para que en momentos difíciles no nos desesperemos ni nos desalentemos, sino que, con gran confianza, nos sometamos a Tu santa voluntad, que es el Amor y la Misericordia misma. Amén.
           </Text>
         </View>
@@ -115,6 +115,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: Colors.primary,
     fontStyle: 'italic',
+  },
+  textoItalica: {
+    fontSize: 18,
+    lineHeight: 28,
+    marginBottom: 10,
+    fontStyle: 'italic',
+    textAlign: 'justify',
   },
   oracion: {
     fontSize: 18,

@@ -119,12 +119,7 @@ export default function ResponsosScreen() {
             </Text>
           </View>
 
-          <Pressable 
-            style={styles.button}
-            onPress={() => router.back()}
-          >
-            <Text style={styles.buttonText}>Volver al listado</Text>
-          </Pressable>
+          
         </View>
       </ScrollView>
     </>
