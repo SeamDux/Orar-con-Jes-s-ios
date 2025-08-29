@@ -14,7 +14,7 @@ module.exports = {
     },
     name: 'Orar con Jesús',
     slug: 'orarconjesus',
-    version: '1.0.0',
+    version: '1.0.1',
     orientation: 'portrait',
     icon: './assets/images/android-chrome-512x512.png',
     userInterfaceStyle: 'light',
