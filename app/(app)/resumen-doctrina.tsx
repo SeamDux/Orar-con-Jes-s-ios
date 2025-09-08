@@ -1,11 +1,99 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, Alert, ActivityIndicator, Linking, ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import Colors from '../../constants/Colors';
 import { Stack, Link } from 'expo-router';
 import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
 
 export default function ResumenDoctrinaScreen() {
+  const [downloading, setDownloading] = useState<string | null>(null);
+
+  const handleOpenVaticanURL = async (url: string, title: string) => {
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(
+          'Error',
+          `No se puede abrir la URL de ${title}. Verifica tu conexión a internet.`,
+          [{ text: 'OK' }]
+        );
+      }
+    } catch (error) {
+      console.error('Error al abrir URL:', error);
+      Alert.alert(
+        'Error',
+        `No se pudo abrir la página de ${title}. Verifica tu conexión a internet.`,
+        [{ text: 'OK' }]
+      );
+    }
+  };
+
+  const handleDownloadAndSharePDF = async (url: string, title: string) => {
+    try {
+      setDownloading(title);
+      
+      // Crear nombre de archivo único
+      const fileName = `${title.replace(/[^a-zA-Z0-9]/g, '_')}_${Date.now()}.pdf`;
+      const fileUri = `${FileSystem.documentDirectory}${fileName}`;
+      
+      console.log('Iniciando descarga de:', url);
+      console.log('Guardando en:', fileUri);
+      
+      // Descargar el archivo
+      const downloadResult = await FileSystem.downloadAsync(url, fileUri);
+      
+      console.log('Resultado de descarga:', downloadResult);
+      
+      if (downloadResult.status === 200) {
+        // Verificar si se puede compartir
+        const isAvailable = await Sharing.isAvailableAsync();
+        
+        if (isAvailable) {
+          // Compartir el archivo descargado
+          await Sharing.shareAsync(downloadResult.uri, {
+            mimeType: 'application/pdf',
+            dialogTitle: `Abrir ${title}`,
+            UTI: 'com.adobe.pdf'
+          });
+        } else {
+          // Si no se puede compartir, mostrar opciones alternativas
+          Alert.alert(
+            'PDF Descargado',
+            `El archivo "${title}" se ha descargado correctamente.\n\nPara abrirlo:\n1. Ve a tu gestor de archivos\n2. Busca el archivo en la carpeta de la app\n3. Tócalo para abrirlo con tu lector de PDF preferido`,
+            [
+              { text: 'Ver en Gestor de Archivos', onPress: () => {
+                // Intentar abrir el gestor de archivos
+                Sharing.shareAsync(downloadResult.uri, {
+                  mimeType: 'application/pdf',
+                  dialogTitle: 'Abrir con aplicación'
+                }).catch(() => {
+                  Alert.alert('Info', 'El archivo se encuentra en la carpeta de la aplicación');
+                });
+              }},
+              { text: 'OK' }
+            ]
+          );
+        }
+      } else {
+        throw new Error(`Error en la descarga: ${downloadResult.status}`);
+      }
+    } catch (error) {
+      console.error('Error completo:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      Alert.alert(
+        'Error',
+        `No se pudo descargar el documento: ${errorMessage}\n\nVerifica tu conexión a internet e inténtalo de nuevo.`,
+        [{ text: 'OK' }]
+      );
+    } finally {
+      setDownloading(null);
+    }
+  };
+
   return (
     <>
       <Stack.Screen
@@ -18,39 +106,53 @@ export default function ResumenDoctrinaScreen() {
         }}
       />
       <View style={styles.container}>
-      <TouchableOpacity
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={true}>
+
+        <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => Linking.openURL('https://multimedia.opusdei.org/pdf/es/social.pdf#page14')}
+          onPress={() => handleOpenVaticanURL(
+            'https://www.vatican.va/roman_curia/pontifical_councils/justpeace/documents/rc_pc_justpeace_doc_20060526_compendio-dott-soc_sp.html',
+            'Compendio de la Doctrina Social de la Iglesia'
+          )}
         >
           <MaterialCommunityIcons name="scale-balance" size={24} color={Colors.primary} style={styles.icon} />
           <View style={styles.textContainer}>
             <Text style={styles.title}>Compendio de la Doctrina Social de la Iglesia</Text>
-            <Text style={styles.subtitle}>Abrir PDF</Text>
+            <Text style={styles.subtitle}>Abrir en el sitio web del Vaticano</Text>
           </View>
+          <MaterialCommunityIcons name="open-in-new" size={20} color={Colors.gray} />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => Linking.openURL('https://multimedia.opusdei.org/doc/pdf/catecismo20231031082545127124.pdf')}
+          onPress={() => handleOpenVaticanURL(
+            'https://www.vatican.va/archive/catechism_sp/index_sp.html',
+            'Catecismo de la Iglesia Católica'
+          )}
         >
           <MaterialCommunityIcons name="book-open-variant" size={24} color={Colors.primary} style={styles.icon} />
           <View style={styles.textContainer}>
             <Text style={styles.title}>Catecismo de la Iglesia Católica</Text>
-            <Text style={styles.subtitle}>Abrir PDF</Text>
+            <Text style={styles.subtitle}>Abrir en el sitio web del Vaticano</Text>
           </View>
+          <MaterialCommunityIcons name="open-in-new" size={20} color={Colors.gray} />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => Linking.openURL('https://odnmedia.s3.amazonaws.com/files/compendio%20catecismo%20iglesia%20catolica20200102-194933.pdf')}
+          onPress={() => handleOpenVaticanURL(
+            'https://www.vatican.va/archive/compendium_ccc/documents/archive_2005_compendium-ccc_sp.html',
+            'Compendio del Catecismo de la Iglesia Católica'
+          )}
         >
           <MaterialCommunityIcons name="book" size={24} color={Colors.primary} style={styles.icon} />
           <View style={styles.textContainer}>
             <Text style={styles.title}>Compendio del Catecismo de la Iglesia Católica</Text>
-            <Text style={styles.subtitle}>Abrir PDF</Text>
+            <Text style={styles.subtitle}>Abrir en el sitio web del Vaticano</Text>
           </View>
+          <MaterialCommunityIcons name="open-in-new" size={20} color={Colors.gray} />
         </TouchableOpacity>
-        
+
         <Link href="/resumen-doctrina/credo" asChild>
           <TouchableOpacity style={styles.menuItem}>
             <MaterialCommunityIcons name="book-cross" size={24} color={Colors.primary} style={styles.icon} />
@@ -78,6 +180,7 @@ export default function ResumenDoctrinaScreen() {
             </View>
           </TouchableOpacity>
         </Link>
+        </ScrollView>
       </View>
     </>
   );
@@ -86,8 +189,12 @@ export default function ResumenDoctrinaScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: Colors.light.background,
+  },
+  scrollView: {
+    flex: 1,
+    padding: 20,
+    paddingBottom: 40,
   },
   menuItem: {
     flexDirection: 'row',
