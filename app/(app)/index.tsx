@@ -378,9 +378,6 @@ export default function HomePage() {
         <TouchableOpacity style={[styles.fabButton, styles.fabButtonCenter]} onPress={() => router.push('/(app)/buscar')}>
           <Ionicons name="search" size={32} color={Colors.white} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.fabButton} onPress={() => router.push('/(tabs)/donaciones')}>
-          <FontAwesome5 name="hand-holding-heart" size={26} color={Colors.primary} />
-        </TouchableOpacity>
       </View>
     </View>
   );

@@ -14,7 +14,7 @@ module.exports = {
     },
     name: 'Orar con Jesús',
     slug: 'orarconjesus',
-    version: '1.0.1',
+    version: '1.0.2',
     orientation: 'portrait',
     icon: './assets/images/android-chrome-512x512.png',
     userInterfaceStyle: 'light',
@@ -29,7 +29,7 @@ module.exports = {
     ios: {
       supportsTablet: true,
       bundleIdentifier: 'com.orarconjesus.app',
-      buildNumber: "5"
+      buildNumber: "1"
     },
     android: {
       package: 'com.orarconjesus.app',
