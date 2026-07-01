@@ -13,8 +13,9 @@ module.exports = {
       }
     },
     name: 'Orar con Jesús',
+    owner: 'orar-con-jesus',
     slug: 'orarconjesus',
-    version: '1.0.6',
+    version: '1.0.7',
     orientation: 'portrait',
     icon: './assets/images/android-chrome-512x512.png',
     userInterfaceStyle: 'light',
@@ -33,7 +34,7 @@ module.exports = {
     },
     android: {
       package: 'com.orarconjesus.app',
-      versionCode: 6,
+      versionCode: 7,
       adaptiveIcon: {
         foregroundImage: './assets/images/app-store-1024pt@1x.png',
         backgroundColor: '#ffffff'
