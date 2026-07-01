@@ -68,7 +68,7 @@ export default function HomePage() {
                 {
                   height: newsDropdownHeight.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [0, 180], // Altura aproximada para 3 opciones
+                    outputRange: [0, 240], // Altura aproximada para 3 opciones
                   }),
                   opacity: newsDropdownHeight,
                 }
@@ -94,6 +94,13 @@ export default function HomePage() {
                   <Text style={styles.dropdownText}>Noticias de la Diócesis</Text>
                 </TouchableOpacity>
               </Link>
+
+              <Link href="/(app)/diocesis-chile" asChild>
+                <TouchableOpacity style={styles.dropdownItem}>
+                  <MaterialCommunityIcons name="map-marker-radius" size={24} color={Colors.primary} />
+                  <Text style={styles.dropdownText}>Diócesis de Chile</Text>
+                  </TouchableOpacity>
+                </Link>
             </Animated.View>
           </View>
 
